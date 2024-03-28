@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM 3.11.8-bookworm
 
 COPY . .
 
