@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 COPY . .
 
-RUN apt install unixodbc-dev
+RUN apt-get update && apt-get install -y unixodbc-dev
 RUN pip install -r requirements.txt
 
 
