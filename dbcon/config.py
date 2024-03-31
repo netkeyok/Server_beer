@@ -8,10 +8,10 @@ sys.path.append(os.path.join(sys.path[0], 'dbcon'))
 
 load_dotenv()
 
-username = os.environ.get("usname")
-password = os.environ.get("pass")
-hostname = os.environ.get("host")
-database_name = os.environ.get("dbname")
+username = os.environ.get("USNAME")
+password = os.environ.get("PASS")
+hostname = os.environ.get("HOST")
+database_name = os.environ.get("DBNAME")
 
 
 # Создание подключения к базе данных
