@@ -1,4 +1,6 @@
-FROM laudio/pyodbc:3.0.0
+FROM laudio/pyodbc:latest
+
+WORKDIR /app
 
 COPY . .
 

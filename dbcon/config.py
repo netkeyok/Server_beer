@@ -15,7 +15,9 @@ database_name = os.environ.get("DBNAME")
 
 
 # Создание подключения к базе данных
-engine = create_engine(f'mssql+pyodbc://{username}:{password}@{hostname}/{database_name}?driver=SQL+Server')
+# engine = create_engine(f'mssql+pyodbc://{username}:{password}@{hostname}/{database_name}?driver=SQL+Server')
+engine = create_engine("mssql+pyodbc://{username}:{password}@{hostname}/{database_name}?driver=ODBC+Driver+18+for+SQL+Server")
+
 
 # Создание сессии
 Session = sessionmaker(bind=engine)
