@@ -12,12 +12,12 @@ load_dotenv()
 username = os.environ.get("USNAME")
 password = os.environ.get("PASS")
 hostname = os.environ.get("HOST")
-database_name = os.environ.get("DBNAME")
+database = os.environ.get("DBNAME")
 
 # Создание подключения к базе данных
 # engine = create_engine(f'mssql+pyodbc://{username}:{password}@{hostname}/{database_name}?driver=SQL+Server')
 engine = create_engine(
-    f"mssql+pyodbc://{username}:{password}@{hostname}/{database_name}?driver=ODBC+Driver+18+for+SQL+Server"
+    f"mssql+pyodbc://{username}:{password}@{hostname}/{database}?driver=ODBC+Driver+18+for+SQL+Server"
     f"&TrustServerCertificate=yes")
 
 # Создание сессии
