@@ -15,7 +15,6 @@ hostname = os.environ.get("HOST")
 database = os.environ.get("DBNAME")
 
 # Создание подключения к базе данных
-# engine = create_engine(f'mssql+pyodbc://{username}:{password}@{hostname}/{database_name}?driver=SQL+Server')
 engine = create_engine(
     f"mssql+pyodbc://{username}:{password}@{hostname}/{database}?driver=ODBC+Driver+18+for+SQL+Server"
     f"&TrustServerCertificate=yes")
@@ -25,9 +24,6 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-# engine = create_engine(f'mssql+pyodbc://{username}:{password}@{hostname}/{database_name}?driver=SQL+Server')
-
-# Получение объекта подключения из engine
 def test_conn():
     connection = engine.raw_connection()
 

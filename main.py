@@ -19,6 +19,3 @@ async def get_documents(start_date: datetime, end_date: datetime, number: int) -
 async def get_org_list():
     items = organization_list()
     return items
-
-# test_conn()
-print(username, password, hostname, database)
