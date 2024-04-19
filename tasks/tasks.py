@@ -4,7 +4,7 @@ from celery.schedules import crontab
 from dbcon.config import REDIS_HOST, REDIS_PASS
 from dbcon.functions import update_articles_name
 
-celery_app = Celery('tasks', broker=f'redis://:{REDIS_PASS}@{REDIS_HOST}:6379/3')
+celery_app = Celery('tasks', broker=f'redis://:{REDIS_PASS}@{REDIS_HOST}:6379/2')
 celery_app.conf.timezone = 'Asia/Yekaterinburg'
 
 celery_app.conf.beat_schedule = {
