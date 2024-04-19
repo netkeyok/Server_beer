@@ -10,7 +10,7 @@ celery_app.conf.timezone = 'Asia/Yekaterinburg'
 celery_app.conf.beat_schedule = {
     'add-every-5-minutes': {
         'task': 'tasks.tasks.start_update_articles_name',
-        'schedule': crontab(minute='*/5', hour='8-23'),
+        'schedule': crontab(minute='*/15', hour='8-23'),
     },
 }
 
