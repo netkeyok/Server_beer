@@ -9,7 +9,7 @@ services:
         - architecture=amd64
 
     ports:
-      - "8081:8081"
+      - "8084:8084"
       - "5557:5557"
 
     environment:
