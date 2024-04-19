@@ -23,6 +23,9 @@ engine = create_engine(
 Session = sessionmaker(bind=engine)
 session = Session()
 
+REDIS_HOST = os.environ.get("REDIS_HOST")
+REDIS_PASS = os.environ.get("REDIS_PASS")
+
 
 def test_conn():
     connection = engine.raw_connection()
@@ -36,3 +39,7 @@ def test_conn():
 
     # Закрытие подключения
     connection.close()
+
+
+if __name__ == '__main__':
+    pass

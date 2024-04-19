@@ -7,6 +7,8 @@ class Doc(BaseModel):
     BaseId: int
     Mark: str
     expdate: datetime
+    name: str
+    barcode: str
 
 
 class Package(BaseModel):

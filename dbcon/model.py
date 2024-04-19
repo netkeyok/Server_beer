@@ -1,12 +1,11 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, SmallInteger, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, SmallInteger, ForeignKey, func
 from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
 
 class ConnectTap(Base):
-
     __tablename__ = 'ConnectTap'
 
     id = Column(Integer, primary_key=True)
@@ -22,7 +21,6 @@ class ConnectTap(Base):
 
 
 class ConnectTapSpec(Base):
-
     __tablename__ = 'ConnectTapSpec'
 
     BaseId = Column(Integer, ForeignKey('ConnectTap.id'), primary_key=True)
@@ -32,7 +30,6 @@ class ConnectTapSpec(Base):
 
 
 class Utms(Base):
-
     __tablename__ = 'Utms'
 
     Id = Column(Integer, primary_key=True)
@@ -41,3 +38,20 @@ class Utms(Base):
     Active = Column(Boolean, nullable=False)
     num = Column(SmallInteger, nullable=False)
     Comment = Column(String(100))
+
+
+class ConnectTapLog(Base):
+    __tablename__ = 'RinatConnectTapLog'
+
+    id = Column(Integer, primary_key=True)
+    DocDateSend = Column(DateTime, nullable=False)
+    Status = Column(SmallInteger, nullable=False)
+    Error = Column(String(2000))
+
+
+class ConnectTapNames(Base):
+    __tablename__ = 'RinatConnectTapNames'
+
+    BARCODE = Column(String(50), primary_key=True)
+    NAME = Column(String(255))
+    UPDATED = Column(DateTime, nullable=False)
