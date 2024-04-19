@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  server_beer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - architecture=amd64
+
+    ports:
+      - "8081:8081"
+      - "5557:5557"
+
+    environment:
+      - PYTHONUNBUFFERED=1
+      - FLOWER_TIMEZONE=Asia/Yekaterinburg
+
+    volumes:
+      - .:/code
+
+    command: supervisord -c supervisord.conf
