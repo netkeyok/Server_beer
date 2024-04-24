@@ -25,11 +25,8 @@ def request_docs(date_start, date_end, org_id=None):
     # Создание базового запроса
     query = (
         select(ConnectTapSpec.BaseId, ConnectTapSpec.Mark,
-               (ConnectTap.DocDate + ConnectTapSpec.ExpDay).label('expdate'),
-               ConnectTapNames.NAME.label('name'),
-               ConnectTapNames.BARCODE.label('barcode'))
+               (ConnectTap.DocDate + ConnectTapSpec.ExpDay).label('expdate'))
         .join(ConnectTap, ConnectTapSpec.BaseId == ConnectTap.id)
-        .join(ConnectTapNames, ConnectTapNames.BARCODE == func.SUBSTRING(ConnectTapSpec.Mark, 4, 13))
         .where(
             and_(
                 ConnectTap.Status == 1,
@@ -40,6 +37,9 @@ def request_docs(date_start, date_end, org_id=None):
 
     # Добавление условия org_id, если он не равен None
     if org_id is not None:
+        query = query.add_columns(ConnectTapNames.NAME.label('name'),
+                                  ConnectTapNames.BARCODE.label('barcode'))
+        query = query.join(ConnectTapNames, ConnectTapNames.BARCODE == func.SUBSTRING(ConnectTapSpec.Mark, 4, 13))
         query = query.where(ConnectTap.OrgId == org_id)
 
     # Выполнение запроса и получение результатов
@@ -48,10 +48,16 @@ def request_docs(date_start, date_end, org_id=None):
     # Обработка результатов
     data = []
     for row in results:
-        data.append(Doc(BaseId=row[0], Mark=row[1], expdate=row[2], name=row[3], barcode=row[4]))
+        print(len(row))
+        if len(row) == 3:
+            data.append(Doc(BaseId=row[0], Mark=row[1], expdate=row[2], name='Отсутствует', barcode='Отсутствует'))
+        else:
+            data.append(Doc(BaseId=row[0], Mark=row[1], expdate=row[2], name=row[3], barcode=row[4]))
+    print(data)
 
     # Создание и возврат объекта Package
     package = Package(items=data)
+
     return package
 
 
@@ -103,12 +109,12 @@ org_id = '3'
 date_1 = '20.02.2024'
 date_2 = '26.03.2024'
 if __name__ == '__main__':
-    data = request_docs(date_1, date_2).items
-    for d in data:
-        print(d)
+    # data = request_docs(date_1, date_2).items
+    # for d in data:
+    #     print(d)
     # data = organization_list()
     # for i in data:
     #     print(i['Id'])
-    # data = update_articles_name()
+    data = update_articles_name()
     # data = get_barcode_names('0104670212250164215EDPGhr93y/w3')
     # print(data['name'])
