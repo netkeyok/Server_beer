@@ -9,8 +9,8 @@ services:
         - architecture=amd64
 
     ports:
-      - "8084:8084"
-      - "5557:5557"
+      - "8081:8081"
+      - "5550:5550"
 
     environment:
       - PYTHONUNBUFFERED=1
