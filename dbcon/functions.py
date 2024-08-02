@@ -48,12 +48,10 @@ def request_docs(date_start, date_end, org_id=None):
     # Обработка результатов
     data = []
     for row in results:
-        print(len(row))
         if len(row) == 3:
             data.append(Doc(BaseId=row[0], Mark=row[1], expdate=row[2], name='Отсутствует', barcode='Отсутствует'))
         else:
             data.append(Doc(BaseId=row[0], Mark=row[1], expdate=row[2], name=row[3], barcode=row[4]))
-    print(data)
 
     # Создание и возврат объекта Package
     package = Package(items=data)
@@ -61,7 +59,7 @@ def request_docs(date_start, date_end, org_id=None):
     return package
 
 
-def update_tap_names(barcode, name):
+def update_tap_names(barcode: object, name: object) -> object:
     with session as s:
         if name is None:
             name = 'Штрихкод отсутствует в Супермаг'
@@ -95,19 +93,20 @@ def update_articles_name(day=5):
     docs = request_docs(date_start=days_ago, date_end=current_time).items
     for doc in docs:
         name = get_article_name(doc.Mark)
+        shcode = doc.Mark[3:16]
         if name:
-            shcode = doc.Mark[3:16]
             update_tap_names(barcode=shcode, name=name)
             counter['Updated'] += 1
         else:
+            update_tap_names(barcode=shcode, name=None)
             counter['Missing'] += 1
     return dict(counter)
 
 
 org_id = '3'
 
-date_1 = '20.02.2024'
-date_2 = '26.03.2024'
+date_1 = '10.06.2024'
+date_2 = '11.06.2024'
 if __name__ == '__main__':
     # data = request_docs(date_1, date_2).items
     # for d in data:
